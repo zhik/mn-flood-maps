@@ -38,7 +38,7 @@
             "source-layer": "Area not included in analysis:1",
             "layout": {},
             "paint": {
-                "fill-color": "#bdbdbd"
+                "fill-color": "rgba(189, 189, 189, 0.7)"
             }
         },
         {
@@ -48,7 +48,7 @@
             "source-layer": "Area under analysis",
             "layout": {},
             "paint": {
-                "fill-color": "#bdbdbd"
+                "fill-color": "rgba(189, 189, 189, 0.7)"
             }
         },
         {
@@ -58,7 +58,7 @@
             "source-layer": "Area not included in analysis:2",
             "layout": {},
             "paint": {
-                "fill-color": "#bdbdbd"
+                "fill-color": "rgba(189, 189, 189, 0.7)"
             }
         },
         {
@@ -68,7 +68,7 @@
             "source-layer": "National Wetlands Inventory",
             "layout": {},
             "paint": {
-                "fill-color": "#bdbdbd"
+                "fill-color": "rgba(189, 189, 189, 0.7)"
             }
         },
         {

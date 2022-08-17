@@ -10,13 +10,22 @@ import thumb_ida_311_heatmap from '../assets/ida_311_heatmap.png'
 import thumb_mod_stormwater from '../assets/mod_stormwater.png'
 import thumb_sandy_inundation from '../assets/sandy_inundation.png'
 
+import {csvParse} from 'd3-dsv'
+
 let baseMapTileLayer = null
 let stormwaterTileLayer = null
 let subwayTileLayer = null
 let idaHeatMapLayer = null
 let idaPointLayer = null
 
+async function initHurrShelters(map){
+    const url = 'https://maps.nyc.gov/hurricane/data/center.csv'
+    
+}
+
 export function initLayers(map) {
+    initHurrShelters(map)
+
     baseMapTileLayer = new VectorTileLayer({
         style: basemapStyle,
     });
@@ -101,6 +110,10 @@ export function initLayers(map) {
         {
             name: 'Moderate Stormwater Flood with 2050 Sea Levels',
             description: 'Heavy rain events that overwhelm our stormwater management system.',
+            legendElements: [
+               
+            ],
+            visible: true,
             src: thumb_mod_stormwater,
             on: (map) => {
                 modStormWaterToggleLayers.forEach(layerId => {
@@ -116,6 +129,10 @@ export function initLayers(map) {
         {
             name: '311 DEP Flood Service Requests (Hur. Ida: Sept 1-2 2021)',
             description: 'Complaints of Sewer Backup, Catch Basin Clogged/Flooding, and Basement Flooding. These show us issues that happen in buildings and sidewalks that the stormwater layer can miss. Zoom in to view more details.',
+            legendElements: [
+               
+            ],
+            visible: true,
             src: thumb_ida_311_heatmap,
             on: (map) => {
                 idaHeatMapLayer.visible = true
@@ -128,6 +145,10 @@ export function initLayers(map) {
         },
         {
             name: 'Sandy Inundation Zone',
+            legendElements: [
+                `<div><span class="fill" style="background-color: #446589;"></span>Inundation Zone - Areas that were flooded as a result of Hurricane Sandy.</div>`
+            ],
+            visible: true,
             src: thumb_sandy_inundation,
             on: (map) => {
                 stormwaterTileLayer.setStyleLayerVisibility('Sandy Inundation Zone', 'visible')
