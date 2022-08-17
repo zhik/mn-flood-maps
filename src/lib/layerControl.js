@@ -14,6 +14,7 @@ let baseMapTileLayer = null
 let stormwaterTileLayer = null
 let subwayTileLayer = null
 let idaHeatMapLayer = null
+let idaPointLayer = null
 
 export function initLayers(map) {
     baseMapTileLayer = new VectorTileLayer({
@@ -46,6 +47,38 @@ export function initLayers(map) {
             minDensity: 0,
         },
         title: "Hurricane Ida - 311 DEP Flooding Related Requests",
+        minScale: 300000,
+        maxScale: 9000
+    });
+
+    idaPointLayer = new GeoJSONLayer({
+        url: URL.createObjectURL(blob),
+        popupTemplate: {
+            title: "{Complaint Type} {Descriptor}",
+            content: "Created {Created Date} at {Incident Address}. Resoluted with {Resolution Description}",
+            fieldInfos: [
+                {
+                    fieldName: "Created Date",
+                    format: {
+                        dateFormat: "short-date-short-time"
+                    }
+                }
+            ]
+        },
+        renderer: {
+            type: "simple",
+            symbol: {
+                type: "simple-marker",
+                color: "rgba(255,0,0, 0.8)",
+                size: 13,
+                outline: {
+                    color: "white"
+                }
+            }
+        },
+        title: "Hurricane Ida - 311 DEP Flooding Related Requests",
+        minScale: 9000,
+        maxScale: 0
     });
 
 
@@ -53,6 +86,7 @@ export function initLayers(map) {
     map.add(baseMapTileLayer);
     map.add(stormwaterTileLayer);
     map.add(idaHeatMapLayer)
+    map.add(idaPointLayer)
 
     const modStormWaterToggleLayers = [
         'Area not included in analysis:1',
@@ -66,6 +100,7 @@ export function initLayers(map) {
     return [
         {
             name: 'Moderate Stormwater Flood with 2050 Sea Levels',
+            description: 'Heavy rain events that overwhelm our stormwater management system.',
             src: thumb_mod_stormwater,
             on: (map) => {
                 modStormWaterToggleLayers.forEach(layerId => {
@@ -80,22 +115,25 @@ export function initLayers(map) {
         },
         {
             name: '311 DEP Flood Service Requests (Hur. Ida: Sept 1-2 2021)',
+            description: 'Complaints of Sewer Backup, Catch Basin Clogged/Flooding, and Basement Flooding. These show us issues that happen in buildings and sidewalks that the stormwater layer can miss. Zoom in to view more details.',
             src: thumb_ida_311_heatmap,
             on: (map) => {
                 idaHeatMapLayer.visible = true
+                idaPointLayer.visible = true
             },
             off: (map) => {
                 idaHeatMapLayer.visible = false
+                idaPointLayer.visible = false
             }
         },
         {
             name: 'Sandy Inundation Zone',
             src: thumb_sandy_inundation,
             on: (map) => {
-                    stormwaterTileLayer.setStyleLayerVisibility('Sandy Inundation Zone', 'visible')
+                stormwaterTileLayer.setStyleLayerVisibility('Sandy Inundation Zone', 'visible')
             },
             off: (map) => {
-                    stormwaterTileLayer.setStyleLayerVisibility('Sandy Inundation Zone', 'none')
+                stormwaterTileLayer.setStyleLayerVisibility('Sandy Inundation Zone', 'none')
             }
         },
     ]
