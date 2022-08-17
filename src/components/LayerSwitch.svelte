@@ -14,7 +14,7 @@
     function toggle() {
         layer.visible ? layer.off($mapStore) : layer.on($mapStore);
         layer.visible = !layer.visible
-        //layers.set($layers)
+        layers.set($layers)
     }
 </script>
 

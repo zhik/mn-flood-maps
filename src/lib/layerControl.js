@@ -10,7 +10,7 @@ import thumb_ida_311_heatmap from '../assets/ida_311_heatmap.png'
 import thumb_mod_stormwater from '../assets/mod_stormwater.png'
 import thumb_sandy_inundation from '../assets/sandy_inundation.png'
 
-import {csvParse} from 'd3-dsv'
+import { csvParse } from 'd3-dsv'
 
 let baseMapTileLayer = null
 let stormwaterTileLayer = null
@@ -18,9 +18,9 @@ let subwayTileLayer = null
 let idaHeatMapLayer = null
 let idaPointLayer = null
 
-async function initHurrShelters(map){
+async function initHurrShelters(map) {
     const url = 'https://maps.nyc.gov/hurricane/data/center.csv'
-    
+
 }
 
 export function initLayers(map) {
@@ -111,7 +111,10 @@ export function initLayers(map) {
             name: 'Moderate Stormwater Flood with 2050 Sea Levels',
             description: 'Heavy rain events that overwhelm our stormwater management system.',
             legendElements: [
-               
+                `<div><span class="fill" style="background-color: #73B2FF;"></span>Nuisance Flooding (greater or equal to 4 in and less than 1ft)</div>`,
+                `<div><span class="fill" style="background-color: #005CE6;"></span>Deep and Contiguous Flooding (1ft and greater)</div>`,
+                `<div><span class="fill" style="background-color: rgba(255, 167, 29,1);"></span>Future High Tides in 2050</div>`,
+                `<div><span class="fill" style="background-color: #CCCCCC;"></span>Area not included in analysis or National Wetlands Inventory</div>`,
             ],
             visible: true,
             src: thumb_mod_stormwater,
@@ -130,7 +133,7 @@ export function initLayers(map) {
             name: '311 DEP Flood Service Requests (Hur. Ida: Sept 1-2 2021)',
             description: 'Complaints of Sewer Backup, Catch Basin Clogged/Flooding, and Basement Flooding. These show us issues that happen in buildings and sidewalks that the stormwater layer can miss. Zoom in to view more details.',
             legendElements: [
-               
+                `<div><span class="circle" style="background-color: rgba(255,0,0,0.8);outline: 1px solid rgba(200,200,200,0.7);"></span>311 DEP Flood Service Requests</div>`
             ],
             visible: true,
             src: thumb_ida_311_heatmap,

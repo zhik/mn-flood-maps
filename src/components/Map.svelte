@@ -26,7 +26,7 @@
     view.ui.add(searchWidget, "top-right");
 
     const zoomWidget = new Zoom({ view });
-    view.ui.add(zoomWidget, "top-right");
+    view.ui.add(zoomWidget, "bottom-right");
 
     layers.set(initLayers(map))
     mapStore.set(map)
