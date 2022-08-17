@@ -1,0 +1,98 @@
+{
+    "version": 8,
+    "glyphs": "https://basemaps.arcgis.com/arcgis/rest/services/World_Basemap_v2/VectorTileServer/resources/fonts/{fontstack}/{range}.pbf",
+    "sources": {
+        "subway": {
+            "type": "vector",
+            "url": "https://vectortileservices6.arcgis.com/QBTLpj07hLeyQqJB/arcgis/rest/services/NYC_Subway_Station_Points/VectorTileServer"
+        }
+    },
+    "layers": [
+        {
+            "id": "NYC_Subway_Station_Points",
+            "type": "circle",
+            "source": "subway",
+            "source-layer": "main.subway_stations2",
+            "minzoom": 8,
+            "paint": {
+                "circle-color": "rgba(255, 255, 255, 1)",
+                "circle-opacity": {
+                    "stops": [
+                        [
+                            11,
+                            0
+                        ],
+                        [
+                            12,
+                            1
+                        ]
+                    ]
+                },
+                "circle-stroke-opacity": {
+                    "stops": [
+                        [
+                            11,
+                            0
+                        ],
+                        [
+                            12,
+                            1
+                        ]
+                    ]
+                },
+                "circle-radius": {
+                    "stops": [
+                        [
+                            10,
+                            2
+                        ],
+                        [
+                            14,
+                            5
+                        ]
+                    ]
+                },
+                "circle-stroke-width": 1,
+                "circle-pitch-scale": "map"
+            }
+        },
+        {
+            "id": "subway_stations_labels",
+            "minzoom": 13,
+            "source": "subway",
+            "source-layer": "main.subway_stations2",
+            "type": "symbol",
+            "layout": {
+                "text-field": "{_name}",
+                "symbol-placement": "point",
+                "symbol-spacing": 250,
+                "symbol-avoid-edges": false,
+                "text-size": 14,
+                "text-anchor": "center",
+                "text-font": [
+                    "Ubuntu Italic"
+                ]
+            },
+            "paint": {
+                "text-halo-color": "rgba(255, 255, 255, 1)",
+                "text-halo-width": 1,
+                "text-translate": [
+                    1,
+                    20
+                ],
+                "text-opacity": {
+                    "stops": [
+                        [
+                            12,
+                            0
+                        ],
+                        [
+                            15,
+                            1
+                        ]
+                    ]
+                }
+            }
+        }
+    ]
+}

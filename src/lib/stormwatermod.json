@@ -1,0 +1,116 @@
+{
+    "version": 8,
+    "sprite": "https://tiles.arcgis.com/tiles/at3rDjch5X7i9Bag/arcgis/rest/services/Moderate_SLR_eraseOB_VTile2/VectorTileServer/resources/sprites/sprite",
+    "glyphs": "https://tiles.arcgis.com/tiles/at3rDjch5X7i9Bag/arcgis/rest/services/Moderate_SLR_eraseOB_VTile2/VectorTileServer/resources/fonts/{fontstack}/{range}.pbf",
+    "sources": {
+        "stormwater": {
+            "type": "vector",
+            "bounds": [
+                -180,
+                -85.0511,
+                180,
+                85.0511
+            ],
+            "minzoom": 0,
+            "maxzoom": 20,
+            "scheme": "xyz",
+            "url": "https://tiles.arcgis.com/tiles/at3rDjch5X7i9Bag/arcgis/rest/services/Moderate_SLR_eraseOB_VTile2/VectorTileServer/"
+        },
+        "sandy": {
+            "type": "vector",
+            "bounds": [
+                -74.2556,
+                40.4961,
+                -73.725,
+                40.9155
+            ],
+            "minzoom": 0,
+            "maxzoom": 23,
+            "scheme": "xyz",
+            "url": "https://vectortileservices6.arcgis.com/QBTLpj07hLeyQqJB/arcgis/rest/services/Sandy_Inundation_Zone_/VectorTileServer"
+        }
+    },
+    "layers": [
+        {
+            "id": "Area not included in analysis:1",
+            "type": "fill",
+            "source": "stormwater",
+            "source-layer": "Area not included in analysis:1",
+            "layout": {},
+            "paint": {
+                "fill-color": "#bdbdbd"
+            }
+        },
+        {
+            "id": "Area under analysis",
+            "type": "fill",
+            "source": "stormwater",
+            "source-layer": "Area under analysis",
+            "layout": {},
+            "paint": {
+                "fill-color": "#bdbdbd"
+            }
+        },
+        {
+            "id": "Area not included in analysis:2",
+            "type": "fill",
+            "source": "stormwater",
+            "source-layer": "Area not included in analysis:2",
+            "layout": {},
+            "paint": {
+                "fill-color": "#bdbdbd"
+            }
+        },
+        {
+            "id": "National Wetlands Inventory/1",
+            "type": "fill",
+            "source": "stormwater",
+            "source-layer": "National Wetlands Inventory",
+            "layout": {},
+            "paint": {
+                "fill-color": "#bdbdbd"
+            }
+        },
+        {
+            "id": "Sandy Inundation Zone",
+            "type": "fill",
+            "source": "sandy",
+            "source-layer": "NYC_large_polygon_split_up(1)",
+            "layout": {},
+            "paint": {
+                "fill-color": "rgba(76,129,205,0.75)",
+                "fill-outline-color": "rgba(0,0,0,0.2)"
+            }
+        },
+        {
+            "id": "Nuisance Flooding (greater or equal to 4 in and less than 1ft)/1",
+            "type": "fill",
+            "source": "stormwater",
+            "source-layer": "Nuisance Flooding (greater or equal to 4 in and less than 1ft)",
+            "layout": {},
+            "paint": {
+                "fill-color": "#73B2FF"
+            }
+        },
+        {
+            "id": "Deep and Contiguous Flooding (1ft and greater)/1",
+            "type": "fill",
+            "source": "stormwater",
+            "source-layer": "Deep and Contiguous Flooding (1ft and greater)",
+            "layout": {},
+            "paint": {
+                "fill-color": "#005CE6"
+            }
+        },
+        {
+            "id": "Future High Tides 2050",
+            "type": "fill",
+            "source": "stormwater",
+            "source-layer": "Future High Tides 2050 ",
+            "layout": {},
+            "paint": {
+                "fill-color": "#FFAA00"
+            }
+        }
+    ]
+}

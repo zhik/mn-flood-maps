@@ -1,19 +1,35 @@
 <script lang="ts">
   import "@arcgis/core/assets/esri/themes/light/main.css";
   import ArcGISMap from "@arcgis/core/Map";
+ 
   import MapView from "@arcgis/core/views/MapView";
+  import Zoom from '@arcgis/core/widgets/Zoom'
+  import Search from "@arcgis/core/widgets/Search"
+
+  import {initLayers} from '../lib/layerControl'
+
+  import {mapStore, layers} from '../stores'
 
   function initMap(container: HTMLDivElement) {
-    const map = new ArcGISMap({
-      basemap: "streets-vector",
-    });
+    const map = new ArcGISMap();
 
     const view = new MapView({
-      map: map,
+      map,
       container,
-      center: [-118.244, 34.052],
+      center: [-73.98255, 40.75925],
       zoom: 12,
     });
+
+    view.ui.components = ["attribution"];
+
+    const searchWidget = new Search({ view });
+    view.ui.add(searchWidget, "top-right");
+
+    const zoomWidget = new Zoom({ view });
+    view.ui.add(zoomWidget, "top-right");
+
+    layers.set(initLayers(map))
+    mapStore.set(map)
 
     view.when(() => {
       console.log("Map is loaded");
