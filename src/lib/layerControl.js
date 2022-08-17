@@ -38,7 +38,6 @@ async function initHurrShelters(map) {
         }
     }))
 
-    console.log(features)
     const blob = new Blob([JSON.stringify({
         type: 'FeatureCollection',
         features
@@ -159,6 +158,30 @@ export function initLayers(map) {
     map.add(stormwaterTileLayer);
     map.add(idaHeatMapLayer)
     map.add(idaPointLayer)
+
+    //cover areas not in Manhattan
+    const mask = new VectorTileLayer({
+        style: {
+            "version": 8, "sources":
+            {
+                "Manhattan_Mask":
+                {
+                    "type": "vector",
+                    "bounds": [-74.8524, 40.2471, -73.1779, 41.11],
+                    "minzoom": 9,
+                    "maxzoom": 23,
+                    "scheme": "xyz",
+                    "url": "https://vectortileservices6.arcgis.com/QBTLpj07hLeyQqJB/arcgis/rest/services/Manhattan_Mask/VectorTileServer/"
+                }
+            }, "layers": [{
+                "id": "Manhattan_Mask", "type": "fill", "source": "Manhattan_Mask",
+                "source-layer": "Manhattan_Mask", "minzoom": 10, "maxzoom": 23, "layout": {},
+                "paint": { "fill-color": "rgba(207, 211, 212, 0.9)" }
+            }]
+        },
+    });
+
+    map.add(mask)
 
     const modStormWaterToggleLayers = [
         'Area not included in analysis:1',
