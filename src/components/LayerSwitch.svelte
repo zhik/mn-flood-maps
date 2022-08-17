@@ -13,8 +13,8 @@
 
     function toggle() {
         layer.visible ? layer.off($mapStore) : layer.on($mapStore);
-        layer.visible = !layer.visible
-        layers.set($layers)
+        layer.visible = !layer.visible;
+        layers.set($layers);
     }
 </script>
 
@@ -31,7 +31,9 @@
         focus:bg-slate-100
         "
 >
-    <img src={layer.src} alt={layer.name + " Thumbnail for Toggle"} />
+    {#if layer.src}
+        <img src={layer.src} alt={layer.name + " Thumbnail for Toggle"} />
+    {/if}
     <div>{layer.name}</div>
     {#if layer.description}
         <div class="absolute bottom-0 right-0" title={layer.description}>

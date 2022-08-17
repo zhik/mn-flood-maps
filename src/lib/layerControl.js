@@ -11,20 +11,83 @@ import thumb_mod_stormwater from '../assets/mod_stormwater.png'
 import thumb_sandy_inundation from '../assets/sandy_inundation.png'
 
 import { csvParse } from 'd3-dsv'
+import proj4 from 'proj4'
+
+const wkid4326 = '+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs';
+const wkid2263 = '+proj=lcc +lat_1=41.03333333333333 +lat_2=40.66666666666666 +lat_0=40.16666666666666 +lon_0=-74 +x_0=300000.0000000001 +y_0=0 +ellps=GRS80 +datum=NAD83 +to_meter=0.3048006096012192 +no_defs'
 
 let baseMapTileLayer = null
 let stormwaterTileLayer = null
 let subwayTileLayer = null
 let idaHeatMapLayer = null
 let idaPointLayer = null
+let hurricaneEvacCenterLayer = null
 
 async function initHurrShelters(map) {
-    const url = 'https://maps.nyc.gov/hurricane/data/center.csv'
+    const url = 'https://corsproxy.io/?https://maps.nyc.gov/hurricane/data/center.csv'
+    const data = csvParse(await (await fetch(url)).text())
+    const features = data.map(properties => ({
+        "type": "Feature",
+        properties,
+        "geometry": {
+            "type": "Point",
+            "coordinates": proj4(wkid2263, wkid4326, [
+                +properties.X,
+                +properties.Y
+            ])
+        }
+    }))
 
+    console.log(features)
+    const blob = new Blob([JSON.stringify({
+        type: 'FeatureCollection',
+        features
+    })], {
+        type: "application/json",
+    });
+
+    const layer = new GeoJSONLayer({
+        url: URL.createObjectURL(blob),
+        popupTemplate: {
+            title: "{OEM_LABEL}",
+            content: "{BLDG_ADD} - {ACC_FEAT}",
+            fieldInfos: [
+                {
+                    fieldName: "Created Date",
+                    format: {
+                        dateFormat: "short-date-short-time"
+                    }
+                }
+            ]
+        },
+        renderer: {
+            type: "simple",
+            symbol: {
+                type: "simple-marker",
+                style: 'diamond',
+                color: "lightblue",
+                size: 13,
+                outline: {
+                    width: 2,
+                    color: "red",
+
+                }
+            }
+        },
+        spatialReference: {
+            wkid: 4326
+        },
+        title: "Hurricane Evacuation Center"
+    });
+
+
+
+    map.add(layer)
+    layer.visible = false
+    hurricaneEvacCenterLayer = layer
 }
 
 export function initLayers(map) {
-    initHurrShelters(map)
 
     baseMapTileLayer = new VectorTileLayer({
         style: basemapStyle,
@@ -90,7 +153,7 @@ export function initLayers(map) {
         maxScale: 0
     });
 
-
+    initHurrShelters(map)
     map.add(subwayTileLayer);
     map.add(baseMapTileLayer);
     map.add(stormwaterTileLayer);
@@ -158,6 +221,20 @@ export function initLayers(map) {
             },
             off: (map) => {
                 stormwaterTileLayer.setStyleLayerVisibility('Sandy Inundation Zone', 'none')
+            }
+        },
+        {
+            name: 'Resources and Evacuation Centers',
+            legendElements: [
+                `<div><span class="diamond" style="background-color: lightblue; outline-color: red"></span>Hurricane Evacuation Centers</div>`
+            ],
+            visible: false,
+            src: '',
+            on: (map) => {
+                hurricaneEvacCenterLayer.visible = true
+            },
+            off: (map) => {
+                hurricaneEvacCenterLayer.visible = false
             }
         },
     ]

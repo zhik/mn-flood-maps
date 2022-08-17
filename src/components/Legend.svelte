@@ -6,8 +6,6 @@
             if (!layer.legendElements) return elements;
             return [...elements, ...layer.legendElements];
         }, []);
-
-    $: console.log(elements);
 </script>
 
 {#if elements.length}
@@ -35,10 +33,19 @@
         display: inline-block;
         margin-right: 4px;
     }
+    :global(.diamond) {
+        width: 0.8em;
+        height: 0.8em;
+        outline: 2px solid white;
+        display: inline-block;
+        transform: rotate(135deg);
+        margin-left: 0.4em;
+        margin-right: 8px;
+    }
     :global(.circle) {
         width: 0.8em;
         height: 0.8em;
-        margin-left: 0.6em;
+        margin-left: 0.4em;
         border-radius: 2em;
         display: inline-block;
         margin-right: 4px;
