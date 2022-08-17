@@ -3,8 +3,8 @@ const config = {
   theme: {
     extend: {},
   },
-
   plugins: [],
+  media: false
 };
 
 module.exports = config;
