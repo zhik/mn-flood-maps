@@ -19,7 +19,7 @@
 </div>
 
 <style>
-    :global(.max-h-95vh){
+    .max-h-95vh{
         max-height: 95vh;
     }
 </style>

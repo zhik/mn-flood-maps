@@ -1,14 +1,14 @@
 <script lang="ts">
   import "@arcgis/core/assets/esri/themes/light/main.css";
   import ArcGISMap from "@arcgis/core/Map";
- 
+
   import MapView from "@arcgis/core/views/MapView";
-  import Zoom from '@arcgis/core/widgets/Zoom'
-  import Search from "@arcgis/core/widgets/Search"
+  import Zoom from "@arcgis/core/widgets/Zoom";
+  import Search from "@arcgis/core/widgets/Search";
 
-  import {initLayers} from '../lib/layerControl'
+  import { initLayers } from "../lib/layerControl";
 
-  import {mapStore, layers} from '../stores'
+  import { mapStore, layers } from "../stores";
 
   function initMap(container: HTMLDivElement) {
     const map = new ArcGISMap();
@@ -20,6 +20,9 @@
       zoom: 12,
     });
 
+    view.constraints.minZoom = 10;
+    view.constraints.maxZoom = 18;
+
     view.ui.components = ["attribution"];
 
     const searchWidget = new Search({ view });
@@ -28,8 +31,8 @@
     const zoomWidget = new Zoom({ view });
     view.ui.add(zoomWidget, "bottom-right");
 
-    layers.set(initLayers(map))
-    mapStore.set(map)
+    layers.set(initLayers(map));
+    mapStore.set(map);
 
     view.when(() => {
       console.log("Map is loaded");

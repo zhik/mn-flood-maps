@@ -63,7 +63,18 @@ function initSubwayBasemap(map) {
                     color: "rgba(0,0,0,0.6)",
 
                 }
-            }
+            },
+            visualVariables: [
+                {
+                    type: 'size',
+                    valueExpression: "$view.scale",
+                    stops: [
+                        { size: 8, value: 1000 },
+                        { size: 5, value: 50000 },
+                        { size: 0, value: 400000 }
+                    ]
+                }
+            ],
         },
         labelingInfo: [labelClass],
         spatialReference: {
@@ -71,6 +82,7 @@ function initSubwayBasemap(map) {
         },
         title: "Subway Stations"
     });
+
 
     const blob2 = new Blob([JSON.stringify(subwayLines)], {
         type: "application/json",
@@ -85,7 +97,7 @@ function initSubwayBasemap(map) {
                 symbol: {
                     type: "simple-line",
                     color,
-                    width: "2px",
+                    width: "3px",
                     style: "solid"
                 }
             })
@@ -93,8 +105,6 @@ function initSubwayBasemap(map) {
 
         return colors
     }, [])
-
-    console.log(lineColors)
 
     const lines = new GeoJSONLayer({
         url: URL.createObjectURL(blob2),
@@ -107,7 +117,7 @@ function initSubwayBasemap(map) {
             wkid: 4326
         },
         title: "Subway Lines",
-        opacity: 0.3
+        opacity: 0.2,
     });
 
     map.add(lines)
@@ -140,7 +150,7 @@ async function initHurrShelters(map) {
     const layer = new GeoJSONLayer({
         url: URL.createObjectURL(blob),
         popupTemplate: {
-            title: "{OEM_LABEL}",
+            title: "Hurricane Evacuation Center: {OEM_LABEL}",
             content: "{BLDG_ADD} - {ACC_FEAT}",
             fieldInfos: [
                 {
@@ -284,6 +294,15 @@ export function initLayers(map) {
         'Future High Tides 2050']
 
     return [
+        {
+            name: 'Placeholder - ❗Active 311 DEP Flood Service Requests (36 hours)',
+            description: '',
+            visible: false,
+            on: (map) => {
+            },
+            off: (map) => {
+            }
+        },
         {
             name: 'Moderate Stormwater Flood with 2050 Sea Levels',
             description: 'Heavy rain events that overwhelm our stormwater management system.',

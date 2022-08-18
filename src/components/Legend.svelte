@@ -16,7 +16,7 @@
         class="
         w-32 md:w-52 lg:w-52 
         bg-white p-2 drop-shadow-sm flex flex-col h-fit leading-5 
-        max-h-52 md:max-h-95vh lg:max-h-95vh 
+        custom-height
         mb-2 md:mb-0 lg:mb-0
         md:ml-2 lg:ml-2
         overflow-y-scroll pointer-events-auto"
@@ -93,5 +93,15 @@
         border-radius: 2em;
         display: inline-block;
         margin-right: 4px;
+    }
+
+    .custom-height {
+        max-height: 13rem;
+    }
+
+    @media (min-width: 768px) {
+        .custom-height {
+            max-height: 95vh;
+        }
     }
 </style>
