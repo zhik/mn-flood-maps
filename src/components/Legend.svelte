@@ -1,5 +1,7 @@
 <script lang="ts">
     import { layers } from "../stores";
+    let collapsed = false;
+
     $: elements = $layers
         .filter(({ visible }) => visible)
         .reduce((elements, layer) => {
@@ -11,12 +13,54 @@
 {#if elements.length}
     <div
         id="legend"
-        class="w-52 bg-white p-2 drop-shadow-sm flex flex-col h-fit leading-5"
+        class="
+        w-32 md:w-52 lg:w-52 
+        bg-white p-2 drop-shadow-sm flex flex-col h-fit leading-5 
+        max-h-52 md:max-h-95vh lg:max-h-95vh 
+        mb-2 md:mb-0 lg:mb-0
+        md:ml-2 lg:ml-2
+        overflow-y-scroll pointer-events-auto"
     >
-        <h3 class="text-lg font-medium mb-2">Legend</h3>
-        {#each elements as element}
-            {@html element}
-        {/each}
+        <button
+            class="text-lg font-medium pointer-events-auto"
+            on:click={() => (collapsed = !collapsed)}
+        >
+            <div class="flex flex-row justify-between items-center">
+                Legend
+                {#if collapsed}
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-5 w-5"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                    >
+                        <path
+                            fill-rule="evenodd"
+                            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                            clip-rule="evenodd"
+                        />
+                    </svg>
+                {:else}
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-5 w-5"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                    >
+                        <path
+                            fill-rule="evenodd"
+                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                            clip-rule="evenodd"
+                        />
+                    </svg>
+                {/if}
+            </div>
+        </button>
+        {#if !collapsed}
+            {#each elements as element}
+                {@html element}
+            {/each}
+        {/if}
     </div>
 {/if}
 

@@ -21,7 +21,7 @@
 <button
     on:click={toggle}
     class="w-32 min-h-24 bg-white pointer-events-auto drop-shadow-md cursor-pointer text-center {layer.visible
-        ? 'outline outline-2 outline-blue-500'
+        ? 'outline outline-2 outline-blue-500 relative'
         : ''}
         flex flex-col items-center
         p-2
