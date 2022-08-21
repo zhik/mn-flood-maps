@@ -1,7 +1,7 @@
 {
     "version": 8,
-    "sprite": "https://tiles.arcgis.com/tiles/at3rDjch5X7i9Bag/arcgis/rest/services/Moderate_SLR_eraseOB_VTile2/VectorTileServer/resources/sprites/sprite",
-    "glyphs": "https://tiles.arcgis.com/tiles/at3rDjch5X7i9Bag/arcgis/rest/services/Moderate_SLR_eraseOB_VTile2/VectorTileServer/resources/fonts/{fontstack}/{range}.pbf",
+    "sprite": "https://tiles.arcgis.com/tiles/at3rDjch5X7i9Bag/arcgis/rest/services/TenYear_MHHW_updatedOB_VTile1/VectorTileServer/resources/sprites/sprite",
+    "glyphs": "https://tiles.arcgis.com/tiles/at3rDjch5X7i9Bag/arcgis/rest/services/TenYear_MHHW_updatedOB_VTile1/VectorTileServerresources/fonts/{fontstack}/{range}.pbf",
     "sources": {
         "stormwater": {
             "type": "vector",
@@ -14,7 +14,7 @@
             "minzoom": 0,
             "maxzoom": 20,
             "scheme": "xyz",
-            "url": "https://tiles.arcgis.com/tiles/at3rDjch5X7i9Bag/arcgis/rest/services/Moderate_SLR_eraseOB_VTile2/VectorTileServer/"
+            "url": "https://tiles.arcgis.com/tiles/at3rDjch5X7i9Bag/arcgis/rest/services/TenYear_MHHW_updatedOB_VTile1/VectorTileServer"
         },
         "sandy": {
             "type": "vector",
@@ -38,7 +38,7 @@
             "source-layer": "Area not included in analysis:1",
             "layout": {},
             "paint": {
-                "fill-color": "rgba(189, 189, 189, 0.7)"
+                "fill-color": "rgba(189, 189, 189, 0.4)"
             }
         },
         {
@@ -48,7 +48,7 @@
             "source-layer": "Area under analysis",
             "layout": {},
             "paint": {
-                "fill-color": "rgba(189, 189, 189, 0.7)"
+                "fill-color": "rgba(189, 189, 189, 0.4)"
             }
         },
         {
@@ -58,7 +58,7 @@
             "source-layer": "Area not included in analysis:2",
             "layout": {},
             "paint": {
-                "fill-color": "rgba(189, 189, 189, 0.7)"
+                "fill-color": "rgba(189, 189, 189, 0.4)"
             }
         },
         {
@@ -68,18 +68,29 @@
             "source-layer": "National Wetlands Inventory",
             "layout": {},
             "paint": {
-                "fill-color": "rgba(189, 189, 189, 0.7)"
+                "fill-color": "rgba(189, 189, 189, 0.4)"
             }
         },
         {
-            "id": "Sandy Inundation Zone",
+            "id": "Sandy Inundation Zone Line",
+            "type": "line",
+            "source": "sandy",
+            "source-layer": "NYC_large_polygon_split_up(1)",
+            "layout": {},
+            "paint": {
+                "line-color": "rgba(255,0,0,0.5)",
+                "line-dasharray": "2, 1",
+                "line-width": 1
+            }
+        },
+        {
+            "id": "Sandy Inundation Zone Fill",
             "type": "fill",
             "source": "sandy",
             "source-layer": "NYC_large_polygon_split_up(1)",
             "layout": {},
             "paint": {
-                "fill-color": "rgba(76,129,205,0.75)",
-                "fill-outline-color": "rgba(0,0,0,0.2)"
+                "fill-color": "rgba(255,0,0,0.05)"
             }
         },
         {
@@ -100,16 +111,6 @@
             "layout": {},
             "paint": {
                 "fill-color": "#005CE6"
-            }
-        },
-        {
-            "id": "Future High Tides 2050",
-            "type": "fill",
-            "source": "stormwater",
-            "source-layer": "Future High Tides 2050 ",
-            "layout": {},
-            "paint": {
-                "fill-color": "#FFAA00"
             }
         }
     ]

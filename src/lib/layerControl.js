@@ -1,5 +1,6 @@
 import GeoJSONLayer from "@arcgis/core/layers/GeoJSONLayer";
 import VectorTileLayer from "@arcgis/core/layers/VectorTileLayer";
+import FeatureLayer from '@arcgis/core/layers/FeatureLayer'
 
 import basemapStyle from "./lightgreybase.json";
 import stormwaterStyle from "./stormwatermod.json";
@@ -24,6 +25,7 @@ let stormwaterTileLayer = null
 let idaHeatMapLayer = null
 let idaPointLayer = null
 let hurricaneEvacCenterLayer = null
+let floodHazardLayer = null
 
 function initSubwayBasemap(map) {
     const blob1 = new Blob([JSON.stringify(subwayStations)], {
@@ -250,8 +252,15 @@ export function initLayers(map) {
         maxScale: 0
     });
 
+    //floodHazardLayer
+    floodHazardLayer = new FeatureLayer({
+        url: "https://services5.arcgis.com/GfwWNkhOj9bNBqoJ/ArcGIS/rest/services/S_FLD_HAZ_AR/FeatureServer/0",
+        opacity: 0.6
+    });
+ 
     initHurrShelters(map)
     map.add(baseMapTileLayer);
+    map.add(floodHazardLayer)
     map.add(stormwaterTileLayer);
     initSubwayBasemap(map)
     map.add(idaHeatMapLayer)
@@ -294,22 +303,21 @@ export function initLayers(map) {
         'Future High Tides 2050']
 
     return [
+        // {
+        //     name: 'Placeholder - ❗Active 311 DEP Flood Service Requests (36 hours)',
+        //     description: '',
+        //     visible: false,
+        //     on: (map) => {
+        //     },
+        //     off: (map) => {
+        //     }
+        // },
         {
-            name: 'Placeholder - ❗Active 311 DEP Flood Service Requests (36 hours)',
-            description: '',
-            visible: false,
-            on: (map) => {
-            },
-            off: (map) => {
-            }
-        },
-        {
-            name: 'Moderate Stormwater Flood with 2050 Sea Levels',
+            name: 'Moderate Stormwater Flood',
             description: 'Heavy rain events that overwhelm our stormwater management system.',
             legendElements: [
                 `<div><span class="fill" style="background-color: #73B2FF;"></span>Nuisance Flooding (greater or equal to 4in and less than 1ft)</div>`,
                 `<div><span class="fill" style="background-color: #005CE6;"></span>Deep and Contiguous Flooding (1ft and greater)</div>`,
-                `<div><span class="fill" style="background-color: rgba(255, 167, 29,1);"></span>Future High Tides in 2050</div>`,
                 `<div><span class="fill" style="background-color: #CCCCCC;"></span>Area not included in analysis or National Wetlands Inventory</div>`,
             ],
             visible: true,
@@ -343,17 +351,25 @@ export function initLayers(map) {
             }
         },
         {
-            name: 'Sandy Inundation Zone',
+            name: 'Coastal Flood Hazard with Sandy Inundation',
+            description: 'FEMA\'s Preliminary Flood Insurance Rate Maps released in 2015',
             legendElements: [
-                `<div><span class="fill" style="background-color: #446589;"></span>Inundation Zone - Areas that were flooded as a result of Hurricane Sandy.</div>`
+                `<div><span class="fill" style="background-color: #52acc4;"></span>Coastal Flood Zone with wave action</div>`,
+                `<div><span class="fill" style="background-color: #52c5ee;"></span>1% annual flood</div>`,
+                `<div><span class="fill" style="background-color: #52ffd8;"></span>Areas of 0.2% annual flood; 1% with avg depts of 1 ft</div>`,
+                `<div><span class="fill" style="background-color: rgba(255,0,0,0.1); outline: #FF0000 solid 1px; outline-style: dotted;"></span>Inundation Zone - Areas that were flooded as a result of Hurricane Sandy.</div>`
             ],
             visible: true,
             src: thumb_sandy_inundation,
             on: (map) => {
-                stormwaterTileLayer.setStyleLayerVisibility('Sandy Inundation Zone', 'visible')
+                floodHazardLayer.visible = true
+                stormwaterTileLayer.setStyleLayerVisibility('Sandy Inundation Zone Line', 'visible')
+                stormwaterTileLayer.setStyleLayerVisibility('Sandy Inundation Zone Fill', 'visible')
             },
             off: (map) => {
-                stormwaterTileLayer.setStyleLayerVisibility('Sandy Inundation Zone', 'none')
+                floodHazardLayer.visible = false
+                stormwaterTileLayer.setStyleLayerVisibility('Sandy Inundation Zone Line', 'none')
+                stormwaterTileLayer.setStyleLayerVisibility('Sandy Inundation Zone Fill', 'none')
             }
         },
         {
