@@ -50,7 +50,7 @@ function initEvents(map) {
     popup.content = [
         {
             type: 'text',
-            text: "<a href='{url}' target='_blank'>{url}</a>"
+            text: "<a href='{source}' target='_blank'>{source}</a>"
         },
         {
             type: 'media',

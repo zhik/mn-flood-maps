@@ -1,39 +1,59 @@
 {
-    "type": "FeatureCollection",
-    "features": [
-      {
-        "type": "Feature",
-        "properties": {
-          "type": "Subway",
-          "name": "W28th and 7th Ave - 1 Train",
-          "date": "Sep 1, 2021",
-          "alt": "Torrent of water bubbling up on a station platform",
-          "url": "28th_ida.gif"
-        },
-        "geometry": {
-          "type": "Point",
-          "coordinates": [
-            -73.9933329820633,
-            40.747204129965525
-          ]
-        }
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "Subway",
+        "name": "W 28th and 7th Ave - 1 Train",
+        "date": "Sep 1, 2021",
+        "alt": "Torrent of water bubbling up on a station platform",
+        "source": "https://twitter.com/GrandOldTribune/status/1433419983086882818",
+        "url": "28th_ida.gif"
       },
-      {
-        "type": "Feature",
-        "properties": {
-          "type": "Subway",
-          "name": "Broadway & W 145th St - 1 Train",
-          "date": "Sep 1, 2021",
-          "alt": "Waterfall down the stairs at 145th Street station",
-          "url": "145th_ida.gif"
-        },
-        "geometry": {
-          "type": "Point",
-          "coordinates": [
-            -73.95051419734953,
-            40.8264467848871
-          ]
-        }
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.9933329820633,
+          40.747204129965525
+        ]
       }
-    ]
-  }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "Subway",
+        "name": "Broadway & W 145th St - 1 Train",
+        "date": "Sep 1, 2021",
+        "alt": "Waterfall down the stairs at 145th Street station",
+        "source": "https://twitter.com/Realtalkies/status/1433262321623867395",
+        "url": "145th_ida.gif"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.95051419734953,
+          40.8264467848871
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "Subway",
+        "name": "FDR by 79th Street",
+        "date": "Sep 1, 2021",
+        "alt": "FDR flooded with cars in the water",
+        "source": "https://twitter.com/Robyniwitz/status/1433250638473928706",
+        "url": "E-Pt2xiX0AIU4ry.jpeg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.94782101637438,
+          40.770253723266265
+        ]
+      }
+    }
+  ]
+}
