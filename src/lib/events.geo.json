@@ -1,0 +1,39 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "properties": {
+          "type": "Subway",
+          "name": "W28th and 7th Ave - 1 Train",
+          "date": "Sep 1, 2021",
+          "alt": "Torrent of water bubbling up on a station platform",
+          "url": "28th_ida.gif"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -73.9933329820633,
+            40.747204129965525
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "type": "Subway",
+          "name": "Broadway & W 145th St - 1 Train",
+          "date": "Sep 1, 2021",
+          "alt": "Waterfall down the stairs at 145th Street station",
+          "url": "145th_ida.gif"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -73.95051419734953,
+            40.8264467848871
+          ]
+        }
+      }
+    ]
+  }

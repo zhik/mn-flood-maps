@@ -1,12 +1,14 @@
 import GeoJSONLayer from "@arcgis/core/layers/GeoJSONLayer";
 import VectorTileLayer from "@arcgis/core/layers/VectorTileLayer";
 import FeatureLayer from '@arcgis/core/layers/FeatureLayer'
+import PopupTemplate from '@arcgis/core/PopupTemplate'
 
 import basemapStyle from "./lightgreybase.json";
 import basemapLabelStyle from "./lightgreybaselabels.json";
 import stormwaterStyle from "./stormwatermod.json";
 import subwayStyle from "./subwaybase.json";
 import idaSr from "./ida.geo.json";
+import events from "./events.geo.json"
 
 import thumb_ida_311_heatmap from '../assets/ida_311_heatmap.png'
 import thumb_mod_stormwater from '../assets/mod_stormwater.png'
@@ -28,6 +30,66 @@ let idaHeatMapLayer = null
 let idaPointLayer = null
 let hurricaneEvacCenterLayer = null
 let floodHazardLayer = null
+
+function getUniqueValueSymbol(name, color) {
+    return {
+        type: "picture-marker",
+        url: name,
+        width: "30px",
+        height: "30px"
+    };
+}
+
+function initEvents(map) {
+    const blob = new Blob([JSON.stringify(events)], {
+        type: "application/json",
+    })
+
+    const popup = new PopupTemplate()
+    popup.title = '{name} on {date}'
+    popup.content = [
+        {
+            type: 'text',
+            text: "<a href='{url}' target='_blank'>{url}</a>"
+        },
+        {
+            type: 'media',
+            mediaInfos: [{
+                caption: "{alt}",
+                type: 'image',
+                value: {
+                    sourceURL: "{url}"
+                }
+            }]
+        }
+    ]
+
+
+
+    const eventsLayer = new GeoJSONLayer({
+        url: URL.createObjectURL(blob),
+        renderer: {
+            type: "unique-value",
+            field: "type",
+            uniqueValueInfos: [
+                {
+                    value: "Subway",
+                    symbol: getUniqueValueSymbol(
+                        "http://static.arcgis.com/images/Symbols/Basic/RedStickpin.png",
+                        "#D13470"
+                    )
+                }
+            ]
+        },
+        popupTemplate: popup,
+        spatialReference: {
+            wkid: 4326
+        },
+        title: "Events"
+    });
+
+    map.add(eventsLayer)
+}
 
 function initSubwayBasemap(map) {
     const blob1 = new Blob([JSON.stringify(subwayStations)], {
@@ -265,7 +327,7 @@ export function initLayers(map) {
         url: "https://services5.arcgis.com/GfwWNkhOj9bNBqoJ/ArcGIS/rest/services/S_FLD_HAZ_AR/FeatureServer/0",
         opacity: 0.6
     });
- 
+
     initHurrShelters(map)
     map.add(baseMapTileLayer);
     map.add(floodHazardLayer)
@@ -274,6 +336,7 @@ export function initLayers(map) {
     map.add(idaHeatMapLayer)
     map.add(idaPointLayer)
     map.add(baseLabelsMapTileLayer)
+    initEvents(map)
 
     idaHeatMapLayer.visible = false
     idaPointLayer.visible = false
