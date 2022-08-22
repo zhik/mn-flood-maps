@@ -76,8 +76,8 @@ function initSubwayBasemap(map) {
                     valueExpression: "$view.scale",
                     stops: [
                         { size: 7, value: 1000 },
-                        { size: 4, value: 50000 },
-                        { size: 0, value: 400000 }
+                        { size: 3, value: 20000 },
+                        { size: 0, value: 40000 }
                     ]
                 }
             ],
@@ -103,7 +103,7 @@ function initSubwayBasemap(map) {
                 symbol: {
                     type: "simple-line",
                     color,
-                    width: "3px",
+                    width: "1.4px",
                     style: "solid"
                 }
             })
