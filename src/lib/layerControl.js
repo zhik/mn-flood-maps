@@ -3,6 +3,7 @@ import VectorTileLayer from "@arcgis/core/layers/VectorTileLayer";
 import FeatureLayer from '@arcgis/core/layers/FeatureLayer'
 
 import basemapStyle from "./lightgreybase.json";
+import basemapLabelStyle from "./lightgreybaselabels.json";
 import stormwaterStyle from "./stormwatermod.json";
 import subwayStyle from "./subwaybase.json";
 import idaSr from "./ida.geo.json";
@@ -21,6 +22,7 @@ const wkid4326 = '+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs';
 const wkid2263 = '+proj=lcc +lat_1=41.03333333333333 +lat_2=40.66666666666666 +lat_0=40.16666666666666 +lon_0=-74 +x_0=300000.0000000001 +y_0=0 +ellps=GRS80 +datum=NAD83 +to_meter=0.3048006096012192 +no_defs'
 
 let baseMapTileLayer = null
+let baseLabelsMapTileLayer = null
 let stormwaterTileLayer = null
 let idaHeatMapLayer = null
 let idaPointLayer = null
@@ -39,8 +41,11 @@ function initSubwayBasemap(map) {
             color: "rgb(40,40,40)",
             haloColor: "rgba(255,255,255,0.8)",
             haloSize: 2,
+            "text-letter-spacing": 0.08,
+            "text-max-width": 4,
+            "symbol-avoid-edges": true,
             font: {
-                family: "Ubuntu",
+                family: "Ubuntu Regular",
                 size: 10
             }
         },
@@ -58,12 +63,11 @@ function initSubwayBasemap(map) {
             type: "simple",
             symbol: {
                 type: "simple-marker",
-                color: "rgba(255,255,255, 0.8)",
-                size: 6,
+                color: "rgba(255,255,255,0.6)",
+                size: 4.5,
                 outline: {
                     width: 1,
                     color: "rgba(0,0,0,0.6)",
-
                 }
             },
             visualVariables: [
@@ -71,8 +75,8 @@ function initSubwayBasemap(map) {
                     type: 'size',
                     valueExpression: "$view.scale",
                     stops: [
-                        { size: 8, value: 1000 },
-                        { size: 5, value: 50000 },
+                        { size: 7, value: 1000 },
+                        { size: 4, value: 50000 },
                         { size: 0, value: 400000 }
                     ]
                 }
@@ -196,6 +200,10 @@ export function initLayers(map) {
         style: basemapStyle,
     });
 
+    baseLabelsMapTileLayer = new VectorTileLayer({
+        style: basemapLabelStyle,
+    });
+
     stormwaterTileLayer = new VectorTileLayer({
         style: stormwaterStyle,
     });
@@ -210,11 +218,11 @@ export function initLayers(map) {
             type: "heatmap",
             colorStops: [
                 { color: "rgba(241,238,246, 0)", ratio: 0 },
-                { color: "rgba(251,106,74, 0.4)", ratio: 0.1 },
+                { color: "rgba(251,106,74, 0.2)", ratio: 0.1 },
                 { color: "rgba(222,45,38, 0.5)", ratio: 0.3 },
                 { color: "rgba(165,15,21, 0.7)", ratio: 0.6 },
             ],
-            maxDensity: 0.01,
+            maxDensity: 0.025,
             minDensity: 0,
         },
         title: "Hurricane Ida - 311 DEP Flooding Related Requests",
@@ -265,6 +273,7 @@ export function initLayers(map) {
     initSubwayBasemap(map)
     map.add(idaHeatMapLayer)
     map.add(idaPointLayer)
+    map.add(baseLabelsMapTileLayer)
 
     idaHeatMapLayer.visible = false
     idaPointLayer.visible = false
@@ -316,8 +325,8 @@ export function initLayers(map) {
             name: 'Moderate Stormwater Flood',
             description: 'Heavy rain events that overwhelm our stormwater management system.',
             legendElements: [
-                `<div><span class="fill" style="background-color: #73B2FF;"></span>Nuisance Flooding (greater or equal to 4in and less than 1ft)</div>`,
-                `<div><span class="fill" style="background-color: #005CE6;"></span>Deep and Contiguous Flooding (1ft and greater)</div>`,
+                `<div><span class="fill" style="background-color: #a69fe4;"></span>Nuisance Flooding (greater or equal to 4in and less than 1ft)</div>`,
+                `<div><span class="fill" style="background-color: #4e44b4;"></span>Deep and Contiguous Flooding (1ft and greater)</div>`,
                 `<div><span class="fill" style="background-color: #CCCCCC;"></span>Area not included in analysis or National Wetlands Inventory</div>`,
             ],
             visible: true,
@@ -355,8 +364,8 @@ export function initLayers(map) {
             description: 'FEMA\'s Preliminary Flood Insurance Rate Maps released in 2015',
             legendElements: [
                 `<div><span class="fill" style="background-color: #52acc4;"></span>Coastal Flood Zone with wave action</div>`,
-                `<div><span class="fill" style="background-color: #52c5ee;"></span>1% annual flood</div>`,
-                `<div><span class="fill" style="background-color: #52ffd8;"></span>Areas of 0.2% annual flood; 1% with avg depts of 1 ft</div>`,
+                `<div><span class="fill" style="background-color: #52c5ee;"></span>Areas with 1% annual flood risk</div>`,
+                `<div><span class="fill" style="background-color: #52ffd8;"></span>Areas with 0.2% annual flood risk; 1% with avg depts of 1 ft</div>`,
                 `<div><span class="fill" style="background-color: rgba(255,0,0,0.1); outline: #FF0000 solid 1px; outline-style: dotted;"></span>Inundation Zone - Areas that were flooded as a result of Hurricane Sandy.</div>`
             ],
             visible: true,

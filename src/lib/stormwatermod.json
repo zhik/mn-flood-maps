@@ -79,8 +79,8 @@
             "layout": {},
             "paint": {
                 "line-color": "rgba(255,0,0,0.5)",
-                "line-dasharray": "2, 1",
-                "line-width": 1
+                "line-dasharray": "5, 1",
+                "line-width": 1.2
             }
         },
         {
@@ -90,7 +90,7 @@
             "source-layer": "NYC_large_polygon_split_up(1)",
             "layout": {},
             "paint": {
-                "fill-color": "rgba(255,0,0,0.05)"
+                "fill-color": "rgba(255,0,0,0.0.5)"
             }
         },
         {
@@ -100,7 +100,7 @@
             "source-layer": "Nuisance Flooding (greater or equal to 4 in and less than 1ft)",
             "layout": {},
             "paint": {
-                "fill-color": "#73B2FF"
+                "fill-color": "#a69fe4"
             }
         },
         {
@@ -110,7 +110,7 @@
             "source-layer": "Deep and Contiguous Flooding (1ft and greater)",
             "layout": {},
             "paint": {
-                "fill-color": "#005CE6"
+                "fill-color": "#4e44b4"
             }
         }
     ]
