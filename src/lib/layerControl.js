@@ -74,8 +74,9 @@ function initEvents(map) {
             uniqueValueInfos: [
                 {
                     value: "Subway",
+                    yoffset: 10,
                     symbol: getUniqueValueSymbol(
-                        "http://static.arcgis.com/images/Symbols/Basic/RedStickpin.png",
+                        "http://static.arcgis.com/images/Symbols/Shapes/RedPin2LargeB.png",
                         "#D13470"
                     )
                 }
@@ -231,17 +232,10 @@ async function initHurrShelters(map) {
         },
         renderer: {
             type: "simple",
-            symbol: {
-                type: "simple-marker",
-                style: 'diamond',
-                color: "lightblue",
-                size: 13,
-                outline: {
-                    width: 2,
-                    color: "red",
-
-                }
-            }
+            symbol: getUniqueValueSymbol(
+                "https://static.arcgis.com/images/Symbols/Emergency-Management/Response-Shelter-Open.png",
+                "#D13470"
+            )
         },
         spatialReference: {
             wkid: 4326
@@ -310,7 +304,7 @@ export function initLayers(map) {
             type: "simple",
             symbol: {
                 type: "simple-marker",
-                color: "rgba(255,0,0, 0.8)",
+                color: "rgba(242, 105, 74, 0.8)",
                 size: 13,
                 outline: {
                     color: "white"
@@ -388,9 +382,14 @@ export function initLayers(map) {
             name: 'Moderate Stormwater Flood',
             description: 'Heavy rain events that overwhelm our stormwater management system.',
             legendElements: [
-                `<div><span class="fill" style="background-color: #a69fe4;"></span>Nuisance Flooding (greater or equal to 4in and less than 1ft)</div>`,
-                `<div><span class="fill" style="background-color: #4e44b4;"></span>Deep and Contiguous Flooding (1ft and greater)</div>`,
-                `<div><span class="fill" style="background-color: #CCCCCC;"></span>Area not included in analysis or National Wetlands Inventory</div>`,
+                `
+                <h3 class="font-bold leading-4">Rainfall precipitation flood risk</h3>
+                <div class="ml-4 mt-1">
+                    <div><span class="fill" style="background-color: #a69fe4;"></span>Nuisance Flooding (greater or equal to 4in and less than 1ft)</div>
+                    <div><span class="fill" style="background-color: #4e44b4;"></span>Deep and Contiguous Flooding (1ft and greater)</div>
+                    <div><span class="fill" style="background-color: #CCCCCC;"></span>Area not included in analysis or National Wetlands Inventory</div>
+                </div>
+                `
             ],
             visible: true,
             src: thumb_mod_stormwater,
@@ -409,7 +408,7 @@ export function initLayers(map) {
             name: '311 DEP Flood Service Requests (Hur. Ida: Sept 1-2 2021)',
             description: 'Complaints of Sewer Backup, Catch Basin Clogged/Flooding, and Basement Flooding. These show us issues that happen in buildings and sidewalks that the stormwater layer can miss. Zoom in to view more details.',
             legendElements: [
-                `<div><span class="circle" style="background-color: rgba(255,0,0,0.8);outline: 1px solid rgba(200,200,200,0.7);"></span>311 DEP Flood Service Requests During Ida</div>`
+                `<div><span class="circle" style="background-color: rgba(255,0,0,0.8);outline: 1px solid rgba(242, 105, 74, 0.8);"></span>311 DEP Flood Service Requests During Ida</div>`
             ],
             visible: false,
             src: thumb_ida_311_heatmap,
@@ -426,10 +425,15 @@ export function initLayers(map) {
             name: 'Coastal Flood Hazard with Sandy Inundation',
             description: 'FEMA\'s Preliminary Flood Insurance Rate Maps released in 2015',
             legendElements: [
-                `<div><span class="fill" style="background-color: #52acc4;"></span>Coastal Flood Zone with wave action</div>`,
-                `<div><span class="fill" style="background-color: #52c5ee;"></span>Areas with 1% annual flood risk</div>`,
-                `<div><span class="fill" style="background-color: #52ffd8;"></span>Areas with 0.2% annual flood risk; 1% with avg depts of 1 ft</div>`,
-                `<div><span class="fill" style="background-color: rgba(255,0,0,0.1); outline: #FF0000 solid 1px; outline-style: dotted;"></span>Inundation Zone - Areas that were flooded as a result of Hurricane Sandy.</div>`
+                `
+                <h3 class="font-bold leading-4">Coastal flood risk</h3>
+                <div class="ml-4 mt-1">
+                    <div><span class="fill" style="background-color: #52acc4;"></span>Coastal Flood Zone with wave action</div>
+                    <div><span class="fill" style="background-color: #52c5ee;"></span>Areas with 1% annual flood risk</div>
+                    <div><span class="fill" style="background-color: #52ffd8;"></span>Areas with 0.2% annual flood risk; 1% with avg depts of 1 ft</div>
+                    <div><span class="fill" style="background-color: rgba(255,0,0,0.1); outline: #FF0000 solid 1px; outline-style: dotted;"></span>Inundation Zone - Areas that were flooded as a result of Hurricane Sandy.</div>
+                </div>
+                `
             ],
             visible: true,
             src: thumb_sandy_inundation,
@@ -447,7 +451,7 @@ export function initLayers(map) {
         {
             name: 'Resources and Evacuation Centers',
             legendElements: [
-                `<div><span class="diamond" style="background-color: lightblue; outline-color: red"></span>Hurricane Evacuation Centers</div>`
+                `<div class="flex flex-row"><img class='max-w-[1.5rem] max-h-[1.5rem] mr-1' src='https://static.arcgis.com/images/Symbols/Emergency-Management/Response-Shelter-Open.png'">Hurricane Evacuation Centers</div>`
             ],
             visible: false,
             src: '',

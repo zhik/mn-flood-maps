@@ -22,7 +22,7 @@
         overflow-y-scroll pointer-events-auto"
     >
         <button
-            class="text-lg font-medium pointer-events-auto"
+            class="text-lg font-light pointer-events-auto"
             on:click={() => (collapsed = !collapsed)}
         >
             <div class="flex flex-row justify-between items-center">
